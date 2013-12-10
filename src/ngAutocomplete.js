@@ -78,7 +78,6 @@ angular.module( "ngAutocomplete", [])
         scope.$watch(scope.watchOptions, function () {
           initOpts()
           newAutocomplete()
-          element[0].value = '';
           scope.ngAutocomplete = element.val();
         }, true);
       }
