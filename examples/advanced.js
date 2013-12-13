@@ -2,7 +2,7 @@ angular.module( "Test", ['ngAutocomplete'])
   .controller("TestCtrl",function ($scope) {
 
     $scope.result = ''
-    $scope.details = ''
+//    $scope.details = ''
     $scope.options = {};
 
     $scope.form = {
@@ -11,7 +11,8 @@ angular.module( "Test", ['ngAutocomplete'])
       country: 'ca',
       typesEnabled: false,
       boundsEnabled: false,
-      componentEnabled: false
+      componentEnabled: false,
+      watchEnter: true
     }
 
     //watch form for changes
@@ -22,10 +23,13 @@ angular.module( "Test", ['ngAutocomplete'])
       $scope.checkForm()
     }, true);
 
+
     //set options from form selections
     $scope.checkForm = function() {
 
       $scope.options = {};
+
+      $scope.options.watchEnter = $scope.form.watchEnter
 
       if ($scope.form.typesEnabled) {
         $scope.options.types = $scope.form.type
@@ -42,5 +46,6 @@ angular.module( "Test", ['ngAutocomplete'])
         $scope.options.country = $scope.form.country
       }
     };
+
   });
 
