@@ -29,7 +29,7 @@ var app = angular.module('myModule', ['ng-Autocomplete']);
 Add the directive to a textbox
 
 ``` javascript
-    <input type="text"  ng-autocomplete ng-model="autocomplete" options="options" details="details/>
+    <input type="text"  ng-autocomplete ng-model="autocomplete" options="options" details="details"/>
 ```
 
 ## Documentation
