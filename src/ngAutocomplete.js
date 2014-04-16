@@ -39,46 +39,7 @@ angular.module( "ngAutocomplete", [])
 
       link: function(scope, element, attrs, controller) {
 
-        //options for autocomplete
-        var opts;
         var watchEnter = false;
-        //convert options provided to opts
-        var initOpts = function() {
-
-          opts = {};
-          if (scope.options) {
-
-            if (scope.options.watchEnter !== true) {
-              watchEnter = false;
-            } else {
-              watchEnter = true;
-            }
-
-            if (scope.options.types) {
-              opts.types = [];
-              opts.types.push(scope.options.types);
-              scope.gPlace.setTypes(opts.types);
-            } else {
-              scope.gPlace.setTypes([]);
-            }
-
-            if (scope.options.bounds) {
-              opts.bounds = scope.options.bounds;
-              scope.gPlace.setBounds(opts.bounds);
-            } else {
-              scope.gPlace.setBounds(null);
-            }
-
-            if (scope.options.country) {
-              opts.componentRestrictions = {
-                country: scope.options.country
-              };
-              scope.gPlace.setComponentRestrictions(opts.componentRestrictions);
-            } else {
-              scope.gPlace.setComponentRestrictions(null);
-            }
-          }
-        };
 
         if (scope.gPlace == undefined) {
           scope.gPlace = new google.maps.places.Autocomplete(element[0], {});
@@ -158,9 +119,25 @@ angular.module( "ngAutocomplete", [])
           return scope.options;
         };
         scope.$watch(scope.watchOptions, function () {
-          initOpts();
-        }, true);
+          if (scope.options) {
+            watchEnter = scope.options.watchEnter;
 
+            if (scope.options.types)
+              scope.gPlace.setTypes([ scope.options.types ]);
+            else
+              scope.gPlace.setTypes([]);
+
+            if (scope.options.bounds)
+              scope.gPlace.setBounds(scope.options.bounds);
+            else
+              scope.gPlace.setBounds(null);
+
+            if (scope.options.country)
+              scope.gPlace.setComponentRestrictions({ country: scope.options.country });
+            else
+              scope.gPlace.setComponentRestrictions(null);
+          }
+        }, true);
       }
     };
   });
