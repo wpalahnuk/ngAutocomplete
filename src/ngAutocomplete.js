@@ -6,7 +6,7 @@
  *
  * Usage:
  *
- * <input type="text"  ng-autocomplete ng-model="autocomplete" options="options" details="details/>
+ * <input type="text"  ng-autocomplete ng-model="autocomplete" options="options" details="details"/>
  *
  * + ng-model - autocomplete textbox value
  *
@@ -44,73 +44,35 @@ angular.module( "ngAutocomplete", [])
         scope.gPlace = new google.maps.places.Autocomplete(element[0], {});
 
         google.maps.event.addListener(scope.gPlace, 'place_changed', function() {
-          var result = scope.gPlace.getPlace();
-          if (result !== undefined) {
-            if (result.address_components !== undefined) {
-
-              scope.$apply(function() {
-
-                scope.details = result;
-
-                controller.$setViewValue(element.val());
-              });
-            }
-            else {
-              if (watchEnter) {
-                getPlace(result);
-              }
-            }
+          if ((scope.details = scope.gPlace.getPlace()) && scope.details.address_components) {
+            scope.$apply(function() {
+              controller.$setViewValue(element.val());
+            });
           }
         });
 
-        //function to get retrieve the autocompletes first result using the AutocompleteService
-        var getPlace = function(result) {
-          var autocompleteService = new google.maps.places.AutocompleteService();
-          if (result.name.length > 0){
-            autocompleteService.getPlacePredictions(
-              {
-                input: result.name,
-                offset: result.name.length
-              },
-              function listentoresult(list, status) {
-                if(list == null || list.length == 0) {
+        var addListener = element[0].addEventListener || element[0].attachEvent;
+        var wrapper = function(type, listener) {
+          if (type === 'keydown') {
+            var orig = listener;
+            listener = function (event) {
+              if (watchEnter && event.which === 13)
+                orig.apply(element[0], [$.Event('keydown', { keyCode : 40, which : 40 })]);
 
-                  scope.$apply(function() {
-                    scope.details = null;
-                  });
-
-                } else {
-                  var placesService = new google.maps.places.PlacesService(element[0]);
-                  placesService.getDetails(
-                    {'reference': list[0].reference},
-                    function detailsresult(detailsResult, placesServiceStatus) {
-
-                      if (placesServiceStatus == google.maps.GeocoderStatus.OK) {
-                        scope.$apply(function() {
-
-                          controller.$setViewValue(detailsResult.formatted_address);
-                          element.val(detailsResult.formatted_address);
-
-                          scope.details = detailsResult;
-
-                          //on focusout the value reverts, need to set it again.
-                          var watchFocusOut = element.on('focusout', function(event) {
-                            element.val(detailsResult.formatted_address);
-                            element.unbind('focusout');
-                          });
-
-                        });
-                      }
-                    }
-                  );
-                }
-              });
+              orig.apply(element[0], [event]);
+            };
           }
+
+          addListener.apply(element[0], [type, listener]);
         };
 
+        if (element[0].addEventListener)
+          element[0].addEventListener = wrapper;
+        else if (element[0].attachEvent)
+          element[0].attachEvent = wrapper;
+
         controller.$render = function () {
-          var location = controller.$viewValue;
-          element.val(location);
+          element.val(controller.$viewValue);
         };
 
         //watch options provided to directive
