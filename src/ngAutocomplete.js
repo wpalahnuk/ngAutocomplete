@@ -91,6 +91,7 @@ angular.module( "ngAutocomplete", [])
               scope.$apply(function() {
 
                 scope.details = result;
+                scope.$emit('mapentrySelected', scope.details);
 
                 controller.$setViewValue(element.val());
               });
