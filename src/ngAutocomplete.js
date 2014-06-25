@@ -134,9 +134,9 @@ angular.module( "ngAutocomplete", [])
                           scope.details = detailsResult;
 
                           //on focusout the value reverts, need to set it again.
-                          var watchFocusOut = element.on('blur', function(event) {
+                          var watchFocusOut = element.on('focusout', function(event) {
                             element.val(detailsResult.formatted_address);
-                            element.unbind('blur')
+                            element.unbind('focusout')
                           })
 
                         });
