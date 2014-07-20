@@ -18,6 +18,7 @@
  *       + bounds: bounds,     Google maps LatLngBounds Object, biases results to bounds, but may return results outside these bounds
  *       + country: country    String, ISO 3166-1 Alpha-2 compatible country code. examples; 'ca', 'us', 'gb'
  *       + watchEnter:         Boolean, true; on Enter select top autocomplete result. false(default); enter ends autocomplete
+ *		 + clearField: 		   Boolean, false; If true, the input field is cleared when a selected is made. 
  *
  * example:
  *
@@ -28,7 +29,7 @@
 **/
 
 angular.module( "ngAutocomplete", [])
-  .directive('ngAutocomplete', function() {
+  .directive('ngAutocomplete', function($timeout) {
     return {
       require: 'ngModel',
       scope: {
@@ -40,8 +41,9 @@ angular.module( "ngAutocomplete", [])
       link: function(scope, element, attrs, controller) {
 
         //options for autocomplete
-        var opts
-        var watchEnter = false
+        var opts, 
+        	watchEnter = false,
+        	clearField = false;
         //convert options provided to opts
         var initOpts = function() {
 
@@ -53,6 +55,8 @@ angular.module( "ngAutocomplete", [])
             } else {
               watchEnter = true
             }
+			
+			clearField = (scope.options.clearField === true) ? true : false;
 
             if (scope.options.types) {
               opts.types = []
@@ -84,15 +88,21 @@ angular.module( "ngAutocomplete", [])
           scope.gPlace = new google.maps.places.Autocomplete(element[0], {});
         }
         google.maps.event.addListener(scope.gPlace, 'place_changed', function() {
+		  if(clearField){
+	      	element.on('blur', function() {
+		    	element.val(''); 
+	        });
+	      }
+          
           var result = scope.gPlace.getPlace();
           if (result !== undefined) {
             if (result.address_components !== undefined) {
 
               scope.$apply(function() {
-
-                scope.details = result;
-
-                controller.$setViewValue(element.val());
+              	scope.details = result;
+				if(!clearField){
+                  controller.$setViewValue(element.val());
+				}
               });
             }
             else {
@@ -101,7 +111,12 @@ angular.module( "ngAutocomplete", [])
               }
             }
           }
-        })
+          if(clearField){
+	          $timeout(function(){
+		          element.val('');
+	          },0);
+          }
+        });
 
         //function to get retrieve the autocompletes first result using the AutocompleteService 
         var getPlace = function(result) {
