@@ -1,6 +1,6 @@
 # ng-Autocomplete
 
-A simple directive for adding google places autocomplete to a textbox element. 
+A simple directive for adding google places autocomplete to a textbox element.
 
 Updated to now use ng-model, should work much better in forms. Can now set an initial value using ng-model. Using the ng-model to set the textbox value does not trigger the autocomplete query.
 
@@ -16,7 +16,7 @@ Uses optional directive parameters, so it won't work with <1.2. If people are in
 
 ## Usage
 
-Include the required libraries 
+Include the required libraries
 ```html
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 ```
@@ -40,12 +40,13 @@ Add the directive to a textbox
 
 + options - configuration for the autocomplete (Optional)
 
-    + types: type,        String, values can be 'geocode', 'establishment', '(regions)', or '(cities)'
+  + types: type,        String, values can be 'geocode', 'establishment', '(regions)', or '(cities)'
 	+ bounds: bounds,     Google maps LatLngBounds Object, biases results to bounds, but may return results outside these bounds
 	+ country: country    String, ISO 3166-1 Alpha-2 compatible country code. examples; 'ca', 'us', 'gb'
-    + watchEnter:         Boolean, true; on Enter select top autocomplete result. false(default); enter ends autocomplete  
+  + watchEnter:         Boolean, true; on Enter select top autocomplete result. false(default); enter ends autocomplete
+  + getPlaceOnBlur:         Boolean, true; on blur select top autocomplete result. false(default);
 
-example: 
+example:
 ``` javascript
 options = {
 types: '(cities)',
