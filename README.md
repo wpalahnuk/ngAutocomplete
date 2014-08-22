@@ -40,11 +40,11 @@ Add the directive to a textbox
 
 + options - configuration for the autocomplete (Optional)
 
-    + types: type,        String, values can be 'geocode', 'establishment', '(regions)', or '(cities)'
+  + types: type,        String, values can be 'geocode', 'establishment', '(regions)', or '(cities)'
 	+ bounds: bounds,     Google maps LatLngBounds Object, biases results to bounds, but may return results outside these bounds
 	+ country: country    String, ISO 3166-1 Alpha-2 compatible country code. examples; 'ca', 'us', 'gb'
-    + watchEnter:         Boolean, true; on Enter select top autocomplete result. false(default); enter ends autocomplete
-    + getPlaceOnBlur:         Boolean, true; on blur select top autocomplete result. false(default);
+  + watchEnter:         Boolean, true; on Enter select top autocomplete result. false(default); enter ends autocomplete
+  + getPlaceOnBlur:         Boolean, true; on blur select top autocomplete result. false(default);
 
 example:
 ``` javascript
