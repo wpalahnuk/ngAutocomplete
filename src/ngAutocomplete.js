@@ -148,6 +148,12 @@ angular.module( "ngAutocomplete", [])
           }
         }
 
+		if (scope.options.getPlaceOnBlur) {
+          element.bind('blur', function () {
+            getPlace({ name: controller.$viewValue });
+          });
+        }
+
         controller.$render = function () {
           var location = controller.$viewValue;
           element.val(location);
