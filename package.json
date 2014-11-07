@@ -1,0 +1,28 @@
+{
+  "name": "ngAutocomplete",
+  "version": "1.0.0",
+  "description": "ngAutocomplete",
+  "main": "src/ngAutocomplete.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wpalahnuk/ngAutocomplete.git"
+  },
+  "keywords": [
+    "angular",
+    "google",
+    "autocomplete",
+    "autosuggest"
+  ],
+  "author": "wpalahnuk@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wpalahnuk/ngAutocomplete/issues"
+  },
+  "homepage": "https://github.com/wpalahnuk/ngAutocomplete"
+}
