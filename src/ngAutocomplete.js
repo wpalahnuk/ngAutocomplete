@@ -110,7 +110,8 @@ angular.module( "ngAutocomplete", [])
             autocompleteService.getPlacePredictions(
               {
                 input: result.name,
-                offset: result.name.length
+                offset: result.name.length,
+                componentRestrictions: opts.componentRestrictions
               },
               function listentoresult(list, status) {
                 if(list == null || list.length == 0) {
