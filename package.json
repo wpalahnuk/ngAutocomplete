@@ -1,7 +1,7 @@
 {
   "name": "ngAutocomplete",
   "version": "1.0.0",
-  "description": "Google Placs Api autocomplete for angular JS",
+  "description": "Google Places Api autocomplete for angular JS",
   "main": "ngAutocomplete.js",
   "directories": {
     "example": "examples"
