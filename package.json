@@ -1,0 +1,32 @@
+{
+  "name": "ngAutocomplete",
+  "version": "1.0.0",
+  "description": "Google Placs Api autocomplete for angular JS",
+  "main": "ngAutocomplete.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wpalahnuk/ngAutocomplete"
+  },
+  "keywords": [
+    "angular-js",
+    "google-places-api",
+    "autocomplete"
+  ],
+  "author": "https://github.com/wpalahnuk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wpalahnuk/ngAutocomplete/issues"
+  },
+  "homepage": "https://github.com/wpalahnuk/ngAutocomplete",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-uglify": "~0.6.0",
+    "grunt-ngmin": "0.0.3"
+  }
+}
