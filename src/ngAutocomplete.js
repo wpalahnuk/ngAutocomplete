@@ -34,7 +34,8 @@ angular.module( "ngAutocomplete", [])
       scope: {
         ngModel: '=',
         options: '=?',
-        details: '=?'
+        details: '=?',
+        placeChanged: '&'
       },
 
       link: function(scope, element, attrs, controller) {
@@ -101,6 +102,9 @@ angular.module( "ngAutocomplete", [])
               }
             }
           }
+          scope.$apply(function() {
+            scope.placeChanged();
+          });
         })
 
         //function to get retrieve the autocompletes first result using the AutocompleteService 
