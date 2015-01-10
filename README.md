@@ -1,3 +1,7 @@
+# tdenovan Changes
+
+Updated to support triggering an autocomplete query when using the ng-model to set the textbox value.
+
 # ng-Autocomplete
 
 A simple directive for adding google places autocomplete to a textbox element. 
