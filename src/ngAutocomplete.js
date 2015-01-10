@@ -42,6 +42,7 @@ angular.module( "ngAutocomplete", [])
         //options for autocomplete
         var opts
         var watchEnter = false
+        
         //convert options provided to opts
         var initOpts = function() {
 
@@ -83,6 +84,7 @@ angular.module( "ngAutocomplete", [])
         if (scope.gPlace == undefined) {
           scope.gPlace = new google.maps.places.Autocomplete(element[0], {});
         }
+        
         google.maps.event.addListener(scope.gPlace, 'place_changed', function() {
           var result = scope.gPlace.getPlace();
           if (result !== undefined) {
@@ -138,7 +140,7 @@ angular.module( "ngAutocomplete", [])
                             element.val(detailsResult.formatted_address);
                             element.unbind('focusout')
                           })
-
+                          
                         });
                       }
                     }
@@ -152,6 +154,12 @@ angular.module( "ngAutocomplete", [])
           var location = controller.$viewValue;
           element.val(location);
         };
+        
+        // Trigger query for any address present on the model when the autocomplete is initialized
+        if (scope.ngModel) {
+          var result = { name: scope.ngModel };
+          getPlace(result);
+        }
 
         //watch options provided to directive
         scope.watchOptions = function () {
