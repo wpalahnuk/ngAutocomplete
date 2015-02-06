@@ -106,7 +106,8 @@ angular.module( "ngAutocomplete", [])
             }
             else {
               if (watchEnter) {
-                getPlace(result)
+                getPlace(result);
+                element[0].blur();
               }
             }
           }
@@ -173,3 +174,4 @@ angular.module( "ngAutocomplete", [])
       }
     };
   });
+
