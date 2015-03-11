@@ -94,6 +94,7 @@ angular.module( "ngAutocomplete", [])
 
                 controller.$setViewValue(element.val());
               });
+			  scope.$emit('placeChanged');
             }
             else {
               if (watchEnter) {
