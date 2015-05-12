@@ -14,10 +14,11 @@
  *
  * + options - configuration for the autocomplete (Optional)
  *
- *       + types: type,        String, values can be 'geocode', 'establishment', '(regions)', or '(cities)'
- *       + bounds: bounds,     Google maps LatLngBounds Object, biases results to bounds, but may return results outside these bounds
- *       + country: country    String, ISO 3166-1 Alpha-2 compatible country code. examples; 'ca', 'us', 'gb'
- *       + watchEnter:         Boolean, true; on Enter select top autocomplete result. false(default); enter ends autocomplete
+ *       + types: type,                 String, values can be 'geocode', 'establishment', '(regions)', or '(cities)'
+ *       + bounds: bounds,              Google maps LatLngBounds Object, biases results to bounds, but may return results outside these bounds
+ *       + country: country             String, ISO 3166-1 Alpha-2 compatible country code. examples; 'ca', 'us', 'gb'
+ *       + watchEnter:                  Boolean, true; on Enter select top autocomplete result. false(default); enter ends autocomplete
+ *       + componentType:               String, return specific address component type on details, values can be 'country' , 'administrative_area_level_1', 'administrative_area_level_2'  check  https://developers.google.com/maps/documentation/javascript/geocoding for more information
  *
  * example:
  *
@@ -25,9 +26,9 @@
  *        types: '(cities)',
  *        country: 'ca'
  *    }
-**/
+ **/
 
-angular.module( "ngAutocomplete", [])
+angular.module("ngAutocomplete", [])
   .directive('ngAutocomplete', function() {
     return {
       require: 'ngModel',
@@ -42,7 +43,7 @@ angular.module( "ngAutocomplete", [])
         //options for autocomplete
         var opts
         var watchEnter = false
-        //convert options provided to opts
+          //convert options provided to opts
         var initOpts = function() {
 
           opts = {}
@@ -50,7 +51,8 @@ angular.module( "ngAutocomplete", [])
 
             if (scope.options.watchEnter !== true) {
               watchEnter = false
-            } else {
+            }
+            else {
               watchEnter = true
             }
 
@@ -58,14 +60,16 @@ angular.module( "ngAutocomplete", [])
               opts.types = []
               opts.types.push(scope.options.types)
               scope.gPlace.setTypes(opts.types)
-            } else {
+            }
+            else {
               scope.gPlace.setTypes([])
             }
 
             if (scope.options.bounds) {
               opts.bounds = scope.options.bounds
               scope.gPlace.setBounds(opts.bounds)
-            } else {
+            }
+            else {
               scope.gPlace.setBounds(null)
             }
 
@@ -74,9 +78,11 @@ angular.module( "ngAutocomplete", [])
                 country: scope.options.country
               }
               scope.gPlace.setComponentRestrictions(opts.componentRestrictions)
-            } else {
+            }
+            else {
               scope.gPlace.setComponentRestrictions(null)
             }
+
           }
         }
 
@@ -89,9 +95,12 @@ angular.module( "ngAutocomplete", [])
             if (result.address_components !== undefined) {
 
               scope.$apply(function() {
-
-                scope.details = result;
-
+                if (scope.options.componentType && result.address_components) {
+                  scope.details = result.address_components.filter(componentfilter);
+                }
+                else {
+                  scope.details = result;
+                }
                 controller.$setViewValue(element.val());
               });
             }
@@ -103,26 +112,36 @@ angular.module( "ngAutocomplete", [])
           }
         })
 
+        //function to filter address component based on componentype in options
+        var componentfilter = function(value, index, ar) {
+          console.log(value.types[0]);
+          if (value.types) {
+            return value.types[0] === scope.options.componentType;
+          }
+          return false;
+        }
+
         //function to get retrieve the autocompletes first result using the AutocompleteService 
         var getPlace = function(result) {
           var autocompleteService = new google.maps.places.AutocompleteService();
-          if (result.name.length > 0){
-            autocompleteService.getPlacePredictions(
-              {
+          if (result.name.length > 0) {
+            autocompleteService.getPlacePredictions({
                 input: result.name,
                 offset: result.name.length
               },
               function listentoresult(list, status) {
-                if(list == null || list.length == 0) {
+                if (list == null || list.length == 0) {
 
                   scope.$apply(function() {
                     scope.details = null;
                   });
 
-                } else {
+                }
+                else {
                   var placesService = new google.maps.places.PlacesService(element[0]);
-                  placesService.getDetails(
-                    {'reference': list[0].reference},
+                  placesService.getDetails({
+                      'reference': list[0].reference
+                    },
                     function detailsresult(detailsResult, placesServiceStatus) {
 
                       if (placesServiceStatus == google.maps.GeocoderStatus.OK) {
@@ -131,7 +150,13 @@ angular.module( "ngAutocomplete", [])
                           controller.$setViewValue(detailsResult.formatted_address);
                           element.val(detailsResult.formatted_address);
 
-                          scope.details = detailsResult;
+                          //check for componenttype filtering on result
+                          if (scope.options.componentType && detailsResult.address_components) {
+                            scope.details = detailsResult.address_components.filter(componentfilter);
+                          }
+                          else {
+                            scope.details = detailsResult;
+                          }
 
                           //on focusout the value reverts, need to set it again.
                           var watchFocusOut = element.on('focusout', function(event) {
@@ -148,16 +173,16 @@ angular.module( "ngAutocomplete", [])
           }
         }
 
-        controller.$render = function () {
+        controller.$render = function() {
           var location = controller.$viewValue;
           element.val(location);
         };
 
         //watch options provided to directive
-        scope.watchOptions = function () {
+        scope.watchOptions = function() {
           return scope.options
         };
-        scope.$watch(scope.watchOptions, function () {
+        scope.$watch(scope.watchOptions, function() {
           initOpts()
         }, true);
 
