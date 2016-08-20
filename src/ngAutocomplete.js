@@ -53,6 +53,7 @@ angular.module("ngAutocompleteValidate", [])
                                 scope.minedAddress = mineAddress(result);
                                 scope.compiledAddress = compileAddress(scope.minedAddress);
                                 controller.$validate()
+                                console.log("TEST", result)
                             });
                         } else {
                             getPlace(result)
@@ -95,9 +96,17 @@ angular.module("ngAutocompleteValidate", [])
                                                     scope.minedAddress = mineAddress(detailsResult);
                                                     scope.compiledAddress = compileAddress(scope.minedAddress)
                                                     controller.$validate()
+                                                    console.log("TEST", detailsResult)
+
+
                                                     //on focusout the value reverts, need to set it again.
                                                     var watchFocusOut = element.on('focusout', function(event) {
                                                         element.val(detailsResult.formatted_address);
+                                                        scope.details = detailsResult;
+                                                        scope.minedAddress = mineAddress(detailsResult);
+                                                        scope.compiledAddress = compileAddress(scope.minedAddress)
+                                                        controller.$validate()
+
                                                         element.unbind('focusout')
                                                     })
 
@@ -117,7 +126,6 @@ angular.module("ngAutocompleteValidate", [])
 
                 function checkFields(a, b) {
                     let valid = false
-                    console.log("TEST: ", a, b)
                     if (!a) return false;
                     if (a.city &&
                         a.country &&
