@@ -96,7 +96,7 @@ angular.module("ngAutocompleteValidate", [])
                                                     scope.minedAddress = mineAddress(detailsResult);
                                                     scope.compiledAddress = compileAddress(scope.minedAddress)
                                                     controller.$validate()
-                                                    console.log("TEST", detailsResult)
+                                                    console.log("TEST", d)
 
 
                                                     //on focusout the value reverts, need to set it again.
@@ -130,7 +130,6 @@ angular.module("ngAutocompleteValidate", [])
                     if (a.city &&
                         a.country &&
                         a.street &&
-                        a.zipcode &&
                         b.street_number) {
                         valid = true;
                     }
