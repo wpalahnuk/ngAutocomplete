@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
 
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
         <link rel="stylesheet" type="text/css" href="example.css">
         <title>ngAutocompleteValidate</title>
@@ -13,50 +13,52 @@
 
         <div ng-controller="TestCtrl" class="wrapper">
 
-            <form id="form" role="form" name="but">< <div class="form-group move-down"> <h2>ng-autocomplete-validate</h2>
-            <label for="Autocomplete2">Autocomplete Model</label>
-            <input type="text" id="Autocomplete2" ng-model="autocomplete" class="form-control" required ng-autocomplete-validate mined-address="minedA" compiled-address="address" details="details" name="potato"/>
+            <form id="form" role="form" name="but">
+                < <div class="form-group move-down">
+                    <h2>ng-autocomplete-validate</h2>
+                    <label for="Autocomplete2">Autocomplete Model</label>
+                    <input type="text" id="Autocomplete2" ng-model="autocomplete" class="form-control" required ng-autocomplete-validate mined-address="minedA" compiled-address="address" details="details" name="potato"/>
 
-            <br>
-            <p>
-                <b>View Value:</b>
-                {{autocomplete}}</p>
-            <p>
-                <b>Details</b>:
-                {{details.formatted_address}}</p>
-            <div class="table">
-                <div class="row header">
-                    <div class="cell">Field</div>
-                    <div class="cell">Value</div>
-                </div>
-                <div class="row" ng-repeat="(k, v) in address">
-                    <div class="cell">{{k}}</div>
-                    <div class="cell">{{v}}</div>
-                </div>
+                    <br>
+                    <p>
+                        <b>View Value:</b>
+                        {{autocomplete}}</p>
+                    <p>
+                        <b>Details</b>:
+                        {{details.formatted_address}}</p>
+                    <div class="table">
+                        <div class="row header">
+                            <div class="cell">Field</div>
+                            <div class="cell">Value</div>
+                        </div>
+                        <div class="row" ng-repeat="(k, v) in address">
+                            <div class="cell">{{k}}</div>
+                            <div class="cell">{{v}}</div>
+                        </div>
+                    </div>
+                </span>
+                <p>
+                    <b>Mined Address:
+                    </b>{{minedA}}</p>
+                <p>
+                    <b>Compile Address:
+                    </b>{{address}}</p>
+                <div id="validbox" ng-class="{'validbox': but.potato.$valid, 'invalidbox': but.potato.$invalid}">{{validboxlabel}}</div>
             </div>
-        </span>
-        <p>
-            <b>Mined Address:
-            </b>{{minedA}}</p>
-        <p>
-            <b>Compile Address:
-            </b>{{address}}</p>
-        <div id="validbox" ng-class="{'validbox': but.potato.$valid, 'invalidbox': but.potato.$invalid}">{{validboxlabel}}</div>
+
+        </form>
+
     </div>
 
-</form>
+    <div>
 
-</div>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgBLLNHqZVffh_72I6zMsjEZgRpKiNAFs&libraries=places"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.1.0/ui-bootstrap.min.js"></script>
+        <script type="text/javascript" src="example.js"></script>
+        <script type="text/javascript" src="src/ngAutocomplete.js"></script>
 
-<div>
-
-<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyBTD466p4SPv-HClOwZtL_uVGHrY4OUcXU&libraries=places"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.1.0/ui-bootstrap.min.js"></script>
-<script type="text/javascript" src="example.js"></script>
-<script type="text/javascript" src="src/ngAutocomplete.js"></script>
-
-</div>
+    </div>
 
 </body>
 </html>
