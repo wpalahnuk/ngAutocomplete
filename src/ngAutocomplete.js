@@ -48,12 +48,10 @@ angular.module("ngAutocompleteValidate", [])
                         if (result.address_components !== undefined) {
                             scope.$apply(function() {
                                 scope.details = result;
-                                //console.log('result', result)
                                 controller.$setViewValue(element.val());
                                 scope.minedAddress = mineAddress(result);
                                 scope.compiledAddress = compileAddress(scope.minedAddress);
                                 controller.$validate()
-                                console.log("TEST", result)
                             });
                         } else {
                             getPlace(result)
