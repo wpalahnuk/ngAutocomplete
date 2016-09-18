@@ -123,7 +123,7 @@ angular.module("ngAutocompleteValidate", [])
                 }
 
                 function checkFields(a, b) {
-                    let valid = false
+                    var valid = false
                     if (!a) return false;
                     if (a.city &&
                         a.country &&
