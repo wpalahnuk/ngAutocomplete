@@ -15,7 +15,7 @@ angular.module("ngAutocompleteValidate", [])
             link: function(scope, element, attrs, controller) {
 
                 function mineAddress(x) {
-                    let rAddress = {}
+                    var rAddress = {}
                     x.address_components.forEach(function(a, i) {
                         rAddress[a.types[0]] = a.long_name
                     })
@@ -23,7 +23,7 @@ angular.module("ngAutocompleteValidate", [])
                 }
 
                 function compileAddress(x) {
-                    let rAddress = {}
+                    var rAddress = {}
                     if (x.route) rAddress.street = x.route;
                     if (x.street_number && rAddress.street) rAddress.street += ' ' + x.street_number;
                     if (x.country) rAddress.country = x.country;
