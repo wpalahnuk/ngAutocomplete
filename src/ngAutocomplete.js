@@ -94,8 +94,6 @@ angular.module("ngAutocompleteValidate", [])
                                                     scope.minedAddress = mineAddress(detailsResult);
                                                     scope.compiledAddress = compileAddress(scope.minedAddress)
                                                     controller.$validate()
-                                                    console.log("TEST", d)
-
 
                                                     //on focusout the value reverts, need to set it again.
                                                     var watchFocusOut = element.on('focusout', function(event) {
