@@ -1,8 +1,13 @@
 {
-  "name": "ngAutocomplete",
-  "version": "1.0.0",
+  "name": "cc-ngAutocomplete",
+  "version": "1.0.8",
   "main": "src/ngAutocomplete.js",
   "dependencies": {
     "angular": ">=1.2.0"
-  }
+  },
+  "homepage": "https://github.com/CareerCruising/ngAutocomplete",
+  "authors": [
+    "Will Palahnuk",
+    "Andrey Tabachnik"
+  ]
 }
